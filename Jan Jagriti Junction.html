@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="Jan Jagriti Junction - A daily digital bulletin board for local stories, public service announcements, and community successes." />
+  <meta name="keywords" content="Jan Jagriti Junction, Community, Local News" />
+  <meta name="author" content="Your Name" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jan Jagriti Junction</title>
+
+  <!-- Bootstrap CSS -->
+  <link 
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
+    rel="stylesheet"
+  />
+  <!-- Tailwind CSS (Optional) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome for Icons (Optional) -->
+  <link 
+    rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" 
+    integrity="sha512-7k8iwOPDy4+eHkR5O85YpjMCiq9TxyAMFXI0ENV91YUMhqJE56z8/+A6Rauctf0PpETMUwvwzAw5C2q0wrK4/Q==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer" 
+  />
+
+  <style>
+    /* ---------------------------------------------------
+       GLOBAL STYLES
+    --------------------------------------------------- */
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #1a202c; /* Tailwind gray-800 */
+      background-color: #f8fafc; /* Tailwind gray-50 */
+      line-height: 1.6;
+    }
+    /* Smooth scrolling for anchor links */
+    html {
+      scroll-behavior: smooth;
+    }
+    a {
+      text-decoration: none;
+    }
+
+    /* Custom Text Selection */
+    ::selection {
+      background-color: #fed7aa; /* warm orange-200 */
+      color: #1a202c;
+    }
+    ::-moz-selection {
+      background-color: #fed7aa;
+      color: #1a202c;
+    }
+
+    /* Custom Scrollbar (Chrome, Edge, Safari) */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #fff7ed; /* warm orange-50 */
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: #b45309; /* warm orange-700 */
+      border-radius: 6px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: #c2410c; /* darkening on hover */
+    }
+
+    /* ---------------------------------------------------
+       NAVIGATION
+    --------------------------------------------------- */
+    .navbar {
+      background-color: #b45309; /* Warm orange-700 */
+    }
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: 1px;
+    }
+    .nav-link {
+      color: #ffffff !important;
+      font-weight: 500;
+    }
+    .nav-link:hover {
+      color: #fed7aa !important; /* warm orange-200 */
+    }
+
+    /* ---------------------------------------------------
+       HERO SECTION
+    --------------------------------------------------- */
+    .hero {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 70vh;
+      text-align: center;
+      overflow: hidden;
+      background: url('https://images.pexels.com/photos/3614310/pexels-photo-3614310.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260') 
+                  center center/cover no-repeat;
+    }
+    /* Warm overlay on hero image */
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: rgba(180, 83, 9, 0.5); /* orange-700 w/ 50% opacity */
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      padding: 2rem;
+      color: #fff;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      margin-top: 1.2rem;
+    }
+    .btn-cta {
+      margin-top: 2rem;
+      background-color: #fed7aa; /* Warm orange-200 */
+      color: #b45309;
+      font-weight: 600;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 9999px; /* pill shape */
+    }
+    .btn-cta:hover {
+      background-color: #fec89a; /* slightly darker warm orange */
+    }
+    /* Wave shape at bottom of Hero */
+    .hero::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      background: url('data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTQzMiA3MDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTAgMTgyTDE0MzIgMTgyTDE0MzIgNzAwTDBNNyAxNTAgYzAgLTY2LjMgNTMuNyAtMTIwIDExOS4zIC0xMjBIMTMyNS4zQzEzOTEuMyAzMCAxNDk1IDgzLjcgMTQ5NSAxNTRMMTQ5NSAxODJIMCIvPjwvc3ZnPg==') 
+        no-repeat;
+      background-size: cover;
+      transform: translateY(1px);
+      z-index: 2;
+    }
+
+    /* ---------------------------------------------------
+       POSTS SECTION
+       (SECOND SECTION AS REQUESTED)
+    --------------------------------------------------- */
+    #postsSection {
+      background-color: #ffffff;
+      padding: 5rem 1rem;
+    }
+    #postsSection .section-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 3rem;
+      text-align: center;
+      color: #b45309;
+    }
+    .blog-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: none;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    .blog-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(0,0,0,0.08);
+    }
+    .blog-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+    .blog-card .card-body {
+      padding: 1.25rem;
+    }
+    .blog-card .card-text {
+      flex-grow: 1;
+    }
+    .blog-card .btn {
+      background-color: #ea580c; /* Warm orange-600 */
+      color: #ffffff; 
+      border: none; 
+      transition: background 0.2s ease;
+    }
+    .blog-card .btn:hover {
+      background-color: #c2410c; /* Warm orange-700 */
+    }
+
+    /* ---------------------------------------------------
+       ABOUT SECTION
+       (LAST SECTION AS REQUESTED)
+    --------------------------------------------------- */
+    #aboutSection {
+      position: relative;
+      padding: 5rem 1rem;
+      background-color: #fff7ed; /* warm orange-50 */
+    }
+    #aboutSection .section-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 3rem;
+      text-align: center;
+      color: #b45309;
+    }
+    #aboutSection p {
+      max-width: 800px;
+      margin: 0 auto 2rem auto;
+    }
+    /* Decorative wave shape for the About section top */
+    #aboutSection::before {
+      content: "";
+      position: absolute;
+      top: -100px;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      background: url('data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjZmZmIiB2aWV3Qm94PSIwIDAgMTQzMiA3MDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTAgMTQ5bDE0MzIgMzIgLTE0MzIgNTE5TCAwIDcwMFYxNDlNMTQzMiA3MDBoLTE0MzJ2LTE0OWwxNDMyIDMyIDAgMzIiLz48L3N2Zz4=')
+        no-repeat;
+      background-size: cover;
+    }
+
+    .about-icons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .icon-card {
+      background-color: #ffffff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      width: 280px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .icon-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 15px rgba(0,0,0,0.07);
+    }
+    .icon-card i {
+      font-size: 2.5rem;
+      color: #ea580c; /* Warm orange-600 */
+      margin-bottom: 1rem;
+    }
+    .icon-card h5 {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #b45309;
+    }
+
+    /* ---------------------------------------------------
+       FOOTER
+    --------------------------------------------------- */
+    .footer {
+      background-color: #b45309;
+      color: #ffffff;
+      padding: 2.5rem 1rem;
+    }
+    .footer p {
+      margin: 0.5rem 0;
+    }
+    .footer a {
+      color: #fcd34d; /* Warm amber-300 */
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
+    <div class="container">
+      <a class="navbar-brand" href="#">Jan Jagriti Junction</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- Reordered Nav Items: Home -> Latest Posts -> About -->
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav gap-2">
+          <li class="nav-item">
+            <a class="nav-link" href="#heroSection">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#postsSection">Latest Posts</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#aboutSection">About</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- END NAVIGATION -->
+
+  <!-- HERO SECTION (FIRST) -->
+  <section class="hero" id="heroSection">
+    <div class="hero-content">
+      <h1>Welcome to Jan Jagriti Junction</h1>
+      <p class="lead">
+        Your daily digital bulletin board for local stories, public service announcements, 
+        and uplifting community successes. Join the conversation and spark lasting change.
+      </p>
+      <a href="#postsSection" class="btn btn-cta">See What's New</a>
+    </div>
+  </section>
+  <!-- END HERO SECTION -->
+
+  <!-- LATEST POSTS SECTION (SECOND) -->
+  <section id="postsSection">
+    <div class="container">
+      <h2 class="section-title">Latest Posts</h2>
+      <div class="row" id="postContainer">
+        <!-- Blog posts injected via JSONP -->
+      </div>
+    </div>
+  </section>
+  <!-- END POSTS SECTION -->
+
+  <!-- ABOUT SECTION (LAST) -->
+  <section id="aboutSection">
+    <div class="container">
+      <h2 class="section-title">About Jan Jagriti Junction</h2>
+      <p>
+        <strong>Jan Jagriti Junction</strong> is your welcoming, neighborhood-inspired platform where local 
+        insights meet meaningful collaboration. Drawing on the spirit of a bustling roadside tea stall, 
+        we fuse critical announcements with inspiring stories to spark vibrant social progress.
+      </p>
+      <p>
+        Fueled by <em>crowd-sourced news</em> and <em>collective voices</em>, we shine a light on everything 
+        from small acts of kindness to major community initiatives. Whether you’re rallying volunteers for 
+        a cleanup, celebrating a cultural festival, or recognizing an unsung hero, every voice finds its 
+        place here.
+      </p>
+      <p>
+        <strong>Jan Jagriti Junction</strong> embraces simplicity—no heavy infrastructure, no convoluted 
+        procedures. Think of it as a dynamic bulletin board where your neighborhood’s heartbeats resonate, 
+        bridging diverse stories into one larger tapestry of collective growth.
+      </p>
+
+      <div class="about-icons">
+        <div class="icon-card">
+          <i class="fas fa-users"></i>
+          <h5>Collective Engagement</h5>
+          <p class="mb-0">
+            Embrace inclusive dialogue. Together, let's share issues, celebrate wins, and collaborate 
+            for real change.
+          </p>
+        </div>
+        <div class="icon-card">
+          <i class="fas fa-bullhorn"></i>
+          <h5>Transparent Updates</h5>
+          <p class="mb-0">
+            Stay in the loop with timely local events, announcements, and alerts that matter to you.
+          </p>
+        </div>
+        <div class="icon-card">
+          <i class="fas fa-hand-holding-heart"></i>
+          <h5>Community Success</h5>
+          <p class="mb-0">
+            Celebrate everyday heroes and neighborhood projects that uplift the entire community.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- END ABOUT SECTION -->
+
+  <!-- FOOTER WITH DAILY SURVEY LINK -->
+  <footer class="footer">
+    <div class="container text-center">
+      <p class="mb-1">&copy; <span id="currentYear"></span> Jan Jagriti Junction. All rights reserved.</p>
+      <p class="mb-1">
+        <a href="https://janjagritijunction.blogspot.com/" target="_blank" rel="noopener noreferrer">
+          Visit our original blog
+        </a>
+      </p>
+      <!-- Google Form Link for Daily Surveys -->
+      <p class="mb-0">
+        <a 
+          href="https://docs.google.com/forms/d/e/1FAIpQLSem_tpPVmZnDDklm2N87oIgXhiehpNpuYRM4YAaTr06I6r_lQ/viewform?usp=sharing"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-cta"
+          style="background-color: #fed7aa; color: #b45309; font-size: .9rem;"
+        >
+          Take Our Daily Survey
+        </a>
+      </p>
+    </div>
+  </footer>
+  <!-- END FOOTER -->
+
+  <!-- Bootstrap JS (Optional) -->
+  <script 
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+  </script>
+
+  <script>
+    // Set current year in the footer
+    document.getElementById("currentYear").textContent = new Date().getFullYear();
+
+    // Container for the posts
+    const postContainer = document.getElementById("postContainer");
+
+    // JSONP callback function
+    function handleBloggerPosts(data) {
+      if (!data.feed || !data.feed.entry) {
+        postContainer.innerHTML = "<p class='text-center'>No posts found.</p>";
+        return;
+      }
+
+      const entries = data.feed.entry;
+      let htmlContent = "";
+
+      entries.forEach(entry => {
+        const title = entry.title?.$t || "Untitled Post";
+        // Find link with rel="alternate"
+        const linkObj = entry.link?.find(l => l.rel === "alternate");
+        const link = linkObj?.href || "#";
+        const publishedDate = new Date(entry.published.$t).toLocaleDateString();
+
+        // Extract snippet
+        let contentSnippet = entry.content?.$t || "";
+        contentSnippet = contentSnippet.replace(/<[^>]*>/g, ""); // Remove HTML tags
+        const snippetMaxLength = 150;
+        if (contentSnippet.length > snippetMaxLength) {
+          contentSnippet = contentSnippet.substring(0, snippetMaxLength) + "...";
+        }
+
+        // Attempt to extract thumbnail
+        let thumbnail = "https://via.placeholder.com/600x400?text=Jan+Jagriti+Junction";
+        const imgMatch = entry.content?.$t.match(/<img[^>]+src="([^">]+)/);
+        if (imgMatch && imgMatch[1]) {
+          thumbnail = imgMatch[1];
+        }
+
+        // Build card
+        htmlContent += `
+          <div class="col-md-4 mb-4">
+            <div class="card blog-card h-100">
+              <img src="${thumbnail}" class="card-img-top" alt="Post Image">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">${title}</h5>
+                <p class="card-text text-muted" style="font-size: 0.9rem;">
+                  <em>Published on: ${publishedDate}</em>
+                </p>
+                <p class="card-text flex-grow-1" style="font-size: 0.95rem;">
+                  ${contentSnippet}
+                </p>
+                <a href="${link}" class="btn mt-auto" target="_blank" rel="noopener noreferrer">
+                  Read More
+                </a>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
+      postContainer.innerHTML = htmlContent;
+    }
+
+    // Dynamically create JSONP script tag
+    const script = document.createElement("script");
+    script.src = "https://janjagritijunction.blogspot.com/feeds/posts/default?alt=json-in-script&callback=handleBloggerPosts";
+    document.head.appendChild(script);
+  </script>
+</body>
+</html>
